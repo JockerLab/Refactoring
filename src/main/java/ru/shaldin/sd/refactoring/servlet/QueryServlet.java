@@ -19,33 +19,27 @@ public class QueryServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String command = request.getParameter("command");
 
-        if ("max".equals(command)) {
-            try {
-                List<Product> data = Database.getMax();
-                response.getWriter().println("<html><body>");
-                response.getWriter().println("<h1>Product with max price: </h1>");
-                for (Product product : data) {
-                    response.getWriter().println(product.getName() + "\t" + product.getPrice() + "</br>");
-                }
-                response.getWriter().println("</body></html>");
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        } else if ("min".equals(command)) {
-            try {
-                List<Product> data = Database.getMin();
-                response.getWriter().println("<html><body>");
-                response.getWriter().println("<h1>Product with min price: </h1>");
-                for (Product product : data) {
-                    response.getWriter().println(product.getName() + "\t" + product.getPrice() + "</br>");
-                }
-                response.getWriter().println("</body></html>");
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        } else if ("sum".equals(command)) {
-            try {
-                try (Connection c = DriverManager.getConnection("jdbc:sqlite:test.db")) {
+        try {
+            switch (command) {
+                case "max":
+                    List<Product> data = Database.getMax();
+                    response.getWriter().println("<html><body>");
+                    response.getWriter().println("<h1>Product with max price: </h1>");
+                    for (Product product : data) {
+                        response.getWriter().println(product.getName() + "\t" + product.getPrice() + "</br>");
+                    }
+                    response.getWriter().println("</body></html>");
+                    break;
+                case "min":
+                    List<Product> data1 = Database.getMin();
+                    response.getWriter().println("<html><body>");
+                    response.getWriter().println("<h1>Product with min price: </h1>");
+                    for (Product product : data1) {
+                        response.getWriter().println(product.getName() + "\t" + product.getPrice() + "</br>");
+                    }
+                    response.getWriter().println("</body></html>");
+                    break;
+                case "sum":
                     Optional<Long> sum = Database.getSum();
                     response.getWriter().println("<html><body>");
                     response.getWriter().println("Summary price: ");
@@ -53,14 +47,8 @@ public class QueryServlet extends HttpServlet {
                         response.getWriter().println(sum.get());
                     }
                     response.getWriter().println("</body></html>");
-                }
-
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        } else if ("count".equals(command)) {
-            try {
-                try (Connection c = DriverManager.getConnection("jdbc:sqlite:test.db")) {
+                    break;
+                case "count":
                     Optional<Long> count = Database.getCount();
                     response.getWriter().println("<html><body>");
                     response.getWriter().println("Number of products: ");
@@ -68,13 +56,13 @@ public class QueryServlet extends HttpServlet {
                         response.getWriter().println(count.get());
                     }
                     response.getWriter().println("</body></html>");
-                }
-
-            } catch (Exception e) {
-                throw new RuntimeException(e);
+                    break;
+                default:
+                    response.getWriter().println("Unknown command: " + command);
+                    break;
             }
-        } else {
-            response.getWriter().println("Unknown command: " + command);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
 
         response.setContentType("text/html");

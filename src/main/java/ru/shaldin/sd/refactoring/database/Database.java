@@ -10,7 +10,7 @@ public class Database {
     public static final String URL = "jdbc:sqlite:test.db";
     public static final String NAME = "PRODUCT";
 
-    public static void executeUpdate(String sql) throws SQLException {
+    private static void executeUpdate(String sql) throws SQLException {
         try (Connection c = DriverManager.getConnection(URL)) {
             Statement stmt = c.createStatement();
             stmt.executeUpdate(sql);
@@ -43,7 +43,7 @@ public class Database {
         }
     }
 
-    public static <T> T executeQuery(String sql, Function<ResultSet, T> method) throws SQLException {
+    private static <T> T executeQuery(String sql, Function<ResultSet, T> method) throws SQLException {
         try (Connection c = DriverManager.getConnection(URL)) {
             Statement stmt = c.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
@@ -53,6 +53,14 @@ public class Database {
 
             return result;
         }
+    }
+
+    public static void createTable() throws SQLException {
+        String sql = "CREATE TABLE IF NOT EXISTS " + NAME +
+                " (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
+                " NAME           TEXT    NOT NULL, " +
+                " PRICE          INT     NOT NULL)";
+        executeUpdate(sql);
     }
 
     public static void insert(String name, long price) throws SQLException {
