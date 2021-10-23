@@ -26,7 +26,6 @@ public class TestUtils {
     public static void makeRequestToDatabase(String sql) throws Exception {
         try (Connection c = DriverManager.getConnection("jdbc:sqlite:test.db")) {
             Statement stmt = c.createStatement();
-
             stmt.executeUpdate(sql);
             stmt.close();
         }
