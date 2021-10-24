@@ -16,4 +16,8 @@ public class Product {
     public long getPrice() {
         return price;
     }
+
+    public String toString() {
+        return name + "\t" + price;
+    }
 }

@@ -44,7 +44,7 @@ public class HtmlResponse {
     public HtmlResponse extractList(List<Product> data) {
         StringBuilder result = new StringBuilder();
         for (Product product : data) {
-            result.append(product.getName()).append("\t").append(product.getPrice()).append("</br>\r\n");
+            result.append(product.toString()).append("</br>\r\n");
         }
         responseBody = responseBody + result.toString();
         return this;
