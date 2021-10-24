@@ -1,6 +1,7 @@
 package ru.shaldin.sd.refactoring.servlet;
 
-import ru.shaldin.sd.refactoring.database.Database;
+import ru.shaldin.sd.refactoring.sql.Queries;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -13,7 +14,7 @@ public class AddProductServlet extends AbstractServlet {
         long price = Long.parseLong(request.getParameter("price"));
 
         try {
-            Database.insert(name, price);
+            Queries.insert(name, price);
             htmlResponse.init(response);
             htmlResponse.addToBody("OK");
             sendResponse();
