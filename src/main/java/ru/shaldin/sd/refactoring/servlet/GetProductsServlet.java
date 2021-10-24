@@ -8,13 +8,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class GetProductsServlet extends HttpServlet {
+public class GetProductsServlet extends AbstractServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
-            HtmlResponse htmlResponse = new HtmlResponse(response);
-            htmlResponse.extractList(Database.selectAll()).wrapResponse().write().setStatus().setContentType();
+            htmlResponse.init(response);
+            htmlResponse.extractList(Database.selectAll()).wrapResponse();
+            sendResponse();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

@@ -9,13 +9,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
 
-public class QueryServlet extends HttpServlet {
+public class QueryServlet extends AbstractServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String command = request.getParameter("command");
 
         try {
-            HtmlResponse htmlResponse = new HtmlResponse(response);
+            htmlResponse.init(response);
             switch (command) {
                 case "max":
                     htmlResponse.addToBody("<h1>Product with max price: </h1>\r\n").extractList(Database.getMax()).wrapResponse();
@@ -33,7 +33,7 @@ public class QueryServlet extends HttpServlet {
                     htmlResponse.addToBody("Unknown command: " + command);
                     break;
             }
-            htmlResponse.write().setContentType().setStatus();
+            sendResponse();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

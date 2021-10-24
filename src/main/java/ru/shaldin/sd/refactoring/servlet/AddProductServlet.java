@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class AddProductServlet extends HttpServlet {
+public class AddProductServlet extends AbstractServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -17,8 +17,9 @@ public class AddProductServlet extends HttpServlet {
 
         try {
             Database.insert(name, price);
-            HtmlResponse htmlResponse = new HtmlResponse(response);
-            htmlResponse.addToBody("OK").write().setStatus().setContentType();
+            htmlResponse.init(response);
+            htmlResponse.addToBody("OK");
+            sendResponse();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

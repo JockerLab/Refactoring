@@ -8,12 +8,15 @@ import java.util.List;
 import java.util.Optional;
 
 public class HtmlResponse {
-    private final HttpServletResponse response;
+    private HttpServletResponse response;
     private String responseBody;
 
-    public HtmlResponse(HttpServletResponse response) {
-        this.response = response;
+    public HtmlResponse() {
         this.responseBody = "";
+    }
+
+    public void init(HttpServletResponse response) {
+        this.response = response;
     }
 
     public HtmlResponse setStatus() {
