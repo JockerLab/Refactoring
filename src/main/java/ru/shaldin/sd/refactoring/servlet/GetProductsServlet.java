@@ -1,9 +1,6 @@
 package ru.shaldin.sd.refactoring.servlet;
 
 import ru.shaldin.sd.refactoring.database.Database;
-import ru.shaldin.sd.refactoring.html.HtmlResponse;
-
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;

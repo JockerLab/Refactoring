@@ -11,12 +11,9 @@ public class HtmlResponse {
     private HttpServletResponse response;
     private String responseBody;
 
-    public HtmlResponse() {
-        this.responseBody = "";
-    }
-
     public void init(HttpServletResponse response) {
         this.response = response;
+        this.responseBody = "";
     }
 
     public HtmlResponse setStatus() {
