@@ -1,6 +1,7 @@
 package ru.shaldin.sd.refactoring.servlet;
 
 import ru.shaldin.sd.refactoring.database.Database;
+import ru.shaldin.sd.refactoring.html.HtmlResponse;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,12 +17,10 @@ public class AddProductServlet extends HttpServlet {
 
         try {
             Database.insert(name, price);
+            HtmlResponse htmlResponse = new HtmlResponse(response);
+            htmlResponse.addToBody("OK").write().setStatus().setContentType();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
-        response.setContentType("text/html");
-        response.setStatus(HttpServletResponse.SC_OK);
-        response.getWriter().println("OK");
     }
 }
