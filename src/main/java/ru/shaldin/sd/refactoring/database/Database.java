@@ -1,6 +1,6 @@
 package ru.shaldin.sd.refactoring.database;
 
-import ru.shaldin.sd.refactoring.Product;
+import ru.shaldin.sd.refactoring.domain.Product;
 
 import java.sql.*;
 import java.util.*;

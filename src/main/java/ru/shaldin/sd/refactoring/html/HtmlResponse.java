@@ -1,6 +1,6 @@
 package ru.shaldin.sd.refactoring.html;
 
-import ru.shaldin.sd.refactoring.Product;
+import ru.shaldin.sd.refactoring.domain.Product;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;

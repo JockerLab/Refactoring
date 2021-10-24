@@ -1,4 +1,4 @@
-package ru.shaldin.sd.refactoring;
+package ru.shaldin.sd.refactoring.domain;
 
 public class Product {
     private final String name;
